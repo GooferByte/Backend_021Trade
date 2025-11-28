@@ -1,0 +1,80 @@
+{
+  "info": {
+    "_postman_id": "3c1f2c31-6c8a-4c57-8a2b-5e3519a61d3f",
+    "name": "Stocky Backend Assessment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "userId", "value": "user-123" }
+  ],
+  "item": [
+    {
+      "name": "Create Reward",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"symbol\": \"RELIANCE\",\n  \"quantity\": \"2.50\",\n  \"eventId\": \"signup-evt-1\",\n  \"fees\": {\n    \"brokerage\": \"12.34\",\n    \"stt\": \"3.21\",\n    \"gst\": \"2.00\",\n    \"other\": \"0\"\n  },\n  \"adjustment\": false\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/reward",
+          "host": ["{{baseUrl}}"],
+          "path": ["reward"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Today Stocks",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/today-stocks/{{userId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["today-stocks", "{{userId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Historical INR",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/historical-inr/{{userId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["historical-inr", "{{userId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Stats",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/stats/{{userId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["stats", "{{userId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Portfolio",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/portfolio/{{userId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["portfolio", "{{userId}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
