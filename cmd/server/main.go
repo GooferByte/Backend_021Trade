@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/GooferByte/Backend_021Trade/internal/config"
 	"github.com/GooferByte/Backend_021Trade/internal/http"
 	"github.com/GooferByte/Backend_021Trade/internal/logger"
 	"github.com/GooferByte/Backend_021Trade/internal/pricing"
@@ -12,7 +13,6 @@ import (
 	"github.com/GooferByte/Backend_021Trade/internal/repository/memory"
 	"github.com/GooferByte/Backend_021Trade/internal/repository/postgres"
 	"github.com/GooferByte/Backend_021Trade/internal/service"
-	"honnef.co/go/tools/config"
 )
 
 func main() {

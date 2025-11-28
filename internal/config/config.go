@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 	"time"
 
@@ -19,9 +20,11 @@ type Config struct {
 }
 
 // Load reads configuration from environment variables. A .env file is loaded
-// if present to simplify local development.
+// if present to simplify local development. We look in bin/.env so the file
+// can live alongside a built binary, and fall back to .env in the project
+// root for compatibility.
 func Load() Config {
-	_ = godotenv.Load()
+	loadDotEnv()
 
 	cfg := Config{
 		Port:        getString("PORT", "8080"),
@@ -32,6 +35,27 @@ func Load() Config {
 
 	cfg.UseInMemoryStore = cfg.DBURL == ""
 	return cfg
+}
+
+func loadDotEnv() {
+	candidates := []string{
+		filepath.Join("bin", ".env"),
+		".env",
+	}
+
+	if exePath, err := os.Executable(); err == nil {
+		exeDir := filepath.Dir(exePath)
+		candidates = append([]string{
+			filepath.Join(exeDir, ".env"),
+			filepath.Join(exeDir, "bin", ".env"),
+		}, candidates...)
+	}
+
+	for _, path := range candidates {
+		if err := godotenv.Load(path); err == nil {
+			return
+		}
+	}
 }
 
 func getString(key, fallback string) string {
